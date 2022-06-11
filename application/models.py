@@ -19,6 +19,7 @@ class Users(db.Model, UserMixin):
     @property
     def prettier_homework_count(self):
         number_remaining_exams = len(self.outstanding_exams.split(","))
+        print(number_remaining_exams)
         return f'{str(number_remaining_exams)}'
 
     @property
@@ -33,7 +34,7 @@ class Users(db.Model, UserMixin):
         return bcrypt.check_password_hash(self.password_hash, attempted_password)
 
 
-class Question(db.Model):
+class Questions(db.Model):
     id = db.Column(db.Integer(), primary_key=True)
     question = db.Column(db.String(length=100), nullable=False, unique=True)
     keywords = db.Column(db.String(length=150), nullable=False)

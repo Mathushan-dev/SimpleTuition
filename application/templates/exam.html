@@ -9,21 +9,20 @@
             <tr>
                 <!-- Your Columns HERE -->
                 <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Barcode</th>
-                <th scope="col">Price</th>
+                <th scope="col">Exams</th>
                 <th scope="col">Options</th>
             </tr>
         </thead>
         <tbody>
             <!-- Your rows inside the table HERE: -->
+            <!-- Need to change this to exams instead of questions -->
             {% for question in questions %}
                 <tr>
                     <td>{{ question.id }}</td>
                     <td>{{ question.question }}</td>
                     <td>
                         <button class="btn btn-outline btn-info">More Info</button>
-                        <button class="btn btn-outline btn-success">Purchase this Item</button>
+                        <button class="btn btn-outline btn-success">Try Exam</button>
                     </td>
                 </tr>
             {% endfor %}

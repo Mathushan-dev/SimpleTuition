@@ -1,6 +1,6 @@
 from application import app
 from flask import render_template, redirect, url_for, flash
-from application.models import Question, Users
+from application.models import Questions, Users
 from application.forms import RegisterForm, LoginForm
 from application import db
 from flask_login import login_user, logout_user, login_required
@@ -20,7 +20,7 @@ def portal_page():
 @app.route('/exam')
 @login_required
 def exam_page():
-    questions = Question.query.all()
+    questions = Questions.query.all()
     return render_template('exam.html', questions=questions)
 
 

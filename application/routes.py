@@ -24,13 +24,19 @@ def exam_page():
     return render_template('exam.html', questions=questions)
 
 
+@app.route('/attempt')
+@login_required
+def attempt_page():
+    return render_template('attempt.html')
+
+
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
         user_to_create = Users(username=form.username.data,
-                              email_address=form.email_address.data,
-                              password=form.password1.data)
+                               email_address=form.email_address.data,
+                               password=form.password1.data)
         db.session.add(user_to_create)
         db.session.commit()
         login_user(user_to_create)

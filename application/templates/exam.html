@@ -22,7 +22,7 @@
                     <td>{{ question.question }}</td>
                     <td>
                         <button class="btn btn-outline btn-info">More Info</button>
-                        <button class="btn btn-outline btn-success">Try Exam</button>
+                        <button class="btn btn-outline btn-success" onclick="location.href='{{ url_for('portal_page') }}'">Try Exam</button>
                     </td>
                 </tr>
             {% endfor %}

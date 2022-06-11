@@ -17,12 +17,6 @@ class Users(db.Model, UserMixin):
     completed_exams = db.Column(db.String(), nullable=False)
 
     @property
-    def prettier_homework_count(self):
-        number_remaining_exams = len(self.outstanding_exams.split(","))
-        print(number_remaining_exams)
-        return f'{str(number_remaining_exams)}'
-
-    @property
     def password(self):
         return self.password
 

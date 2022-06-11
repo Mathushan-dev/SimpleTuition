@@ -21,7 +21,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="{{ url_for('home_page') }}">Home <span class="sr-only">(current)</span></a>
+                <a class="nav-link" href="{{ url_for('portal_page') }}">Home <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" href="{{ url_for('exam_page') }}">Exam</a>
@@ -32,7 +32,7 @@
                 <li class="nav-item">
                     <a class="nav-link" style="color: lawngreen; font-weight: bold">
                         <i class="fas fa-coins"></i>
-                        {{ current_user.prettier_budget }}
+                        {{ current_user.prettier_homework_count }}
                     </a>
                 </li>
                 <li class="nav-item">

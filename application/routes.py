@@ -1,6 +1,6 @@
 from application import app
 from flask import render_template, redirect, url_for, flash
-from application.models import Item, User
+from application.models import Question, Users
 from application.forms import RegisterForm, LoginForm
 from application import db
 from flask_login import login_user, logout_user, login_required
@@ -20,15 +20,15 @@ def portal_page():
 @app.route('/exam')
 @login_required
 def exam_page():
-    items = Item.query.all()
-    return render_template('exam.html', items=items)
+    questions = Question.query.all()
+    return render_template('exam.html', questions=questions)
 
 
 @app.route('/register', methods=['GET', 'POST'])
 def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
-        user_to_create = User(username=form.username.data,
+        user_to_create = Users(username=form.username.data,
                               email_address=form.email_address.data,
                               password=form.password1.data)
         db.session.add(user_to_create)
@@ -47,7 +47,7 @@ def register_page():
 def login_page():
     form = LoginForm()
     if form.validate_on_submit():
-        attempted_user = User.query.filter_by(username=form.username.data).first()
+        attempted_user = Users.query.filter_by(username=form.username.data).first()
         if attempted_user and attempted_user.check_password_correction(
                 attempted_password=form.password.data
         ):

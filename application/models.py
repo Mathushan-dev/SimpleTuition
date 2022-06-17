@@ -13,8 +13,8 @@ class Users(db.Model, UserMixin):
     username = db.Column(db.String(length=30), nullable=False, unique=True)
     email_address = db.Column(db.String(length=50), nullable=False, unique=True)
     password_hash = db.Column(db.String(length=60), nullable=False)
-    outstanding_exams = db.Column(db.String(), nullable=False)
-    completed_exams = db.Column(db.String(), nullable=False)
+    outstanding_questions = db.Column(db.String(), nullable=False)
+    completed_questions = db.Column(db.String(), nullable=False)
 
     @property
     def password(self):

@@ -3,8 +3,8 @@ CREATE TABLE users (
     username VARCHAR(30) NOT NULL,
     email_address VARCHAR(50) NOT NULL,
     password_hash VARCHAR(60) NOT NULL,
-    outstanding_exams VARCHAR(1024),
-    completed_exams VARCHAR(1024)
+    outstanding_questions VARCHAR(1024),
+    completed_questions VARCHAR(1024)
 );
 CREATE TABLE questions (
     id SERIAL PRIMARY KEY,

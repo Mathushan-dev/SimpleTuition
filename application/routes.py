@@ -3,7 +3,7 @@ from flask import render_template, redirect, url_for, flash
 from application.models import Questions, Users
 from application.forms import RegisterForm, LoginForm
 from application import db
-from flask_login import login_user, logout_user, login_required
+from flask_login import login_user, logout_user, login_required, current_user
 
 
 @app.route('/')
@@ -20,8 +20,22 @@ def portal_page():
 @app.route('/exam')
 @login_required
 def exam_page():
-    questions = Questions.query.all()
-    return render_template('exam.html', questions=questions)
+    # todo admin side
+    if current_user.id == 1:
+        users = Users.query.all()
+        return render_template('analyse.html', users=users)
+
+    if current_user.outstanding_questions is not None:
+        outstanding_questions = []
+        outstanding_questions_list = current_user.outstanding_questions.split(",")
+
+        for question_id in outstanding_questions_list:
+            question = Questions.query.filter_by(id == question_id).all()
+            outstanding_questions.append(question)
+
+        return render_template('exam.html', questions=outstanding_questions)
+
+    return render_template('wohoo.html')
 
 
 @app.route('/attempt')

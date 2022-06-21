@@ -21,9 +21,9 @@ Exam Page
         <td>{{ user.username }}</td>
         <td>{{ user.outstanding_questions }}</td>
         {% if user.outstanding_questions is not none %}}
-            <td>{{ user.outstanding_questions.split(",")|length }}</td>
+        <td>{{ user.outstanding_questions.split(",")|length }}</td>
         {% else %}
-            <td><p>0</p></td>
+        <td><p>0</p></td>
         {% endif %}
     </tr>
     {% endfor %}

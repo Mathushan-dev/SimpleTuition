@@ -17,14 +17,29 @@ def portal_page():
     return render_template('portal.html')
 
 
-@app.route('/exam')
+@app.route('/assign')
 @login_required
-def exam_page():
-    # todo admin side
+def assign_page():
+    if current_user.id == 1:
+        users = Users.query.all()
+        return render_template('assign.html', users=users)
+
+    return render_template('login.html')
+
+
+@app.route('/analyse')
+@login_required
+def analyse_page():
     if current_user.id == 1:
         users = Users.query.all()
         return render_template('analyse.html', users=users)
 
+    return render_template('login.html')
+
+
+@app.route('/exam')
+@login_required
+def exam_page():
     if current_user.outstanding_questions is not None:
         outstanding_questions = []
         outstanding_questions_list = current_user.outstanding_questions.split(",")
@@ -73,7 +88,7 @@ def login_page():
         ):
             login_user(attempted_user)
             flash(f'Success! You are logged in as: {attempted_user.username}', category='success')
-            return render_template('exam.html')
+            return render_template('portal.html')
         else:
             flash('Username and password are not match! Please try again', category='danger')
 

@@ -7,16 +7,15 @@ Attempt Page
 <div class="container">
     <form method="POST" class="form-register" style="color:white">
         {{ form.hidden_tag() }}
+        <input id="question_id" name="question_id" type="hidden" value="{{ question_id }}">
+        <input id="question" name="question" type="hidden" value="{{ question }}">
         <img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
         <h1 class="h3 mb-3 font-weight-normal">
-            Please Complete the Homework
+            {{ question }}
         </h1>
         <br>
-        {{ form.students.label() }}
-        {{ form.students(class="form-control", placeholder="Students") }}
-
-        {{ form.homeworks.label() }}
-        {{ form.homeworks(class="form-control", placeholder="Homeworks") }}
+        {{ form.answer.label() }}
+        {{ form.answer(class="form-control", placeholder="Answer") }}
         <br>
 
         {{ form.submit(class="btn btn-lg btn-block btn-primary") }}

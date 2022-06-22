@@ -31,7 +31,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField(label='Sign in')
 
 
-class AnswerForm(FlaskForm):
+class AttemptForm(FlaskForm):
     answer = StringField(label='Answer:', validators=[DataRequired()])
     submit = SubmitField(label='Check Answer')
 

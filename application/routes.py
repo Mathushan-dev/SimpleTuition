@@ -1,7 +1,7 @@
 from application import app
-from flask import render_template, redirect, url_for, flash
+from flask import render_template, redirect, url_for, flash, request
 from application.models import Questions, Users
-from application.forms import RegisterForm, LoginForm, AnswerForm, AssignForm
+from application.forms import RegisterForm, LoginForm, AttemptForm, AssignForm
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -67,10 +67,30 @@ def exam_page():
     return render_template('wohoo.html')
 
 
-@app.route('/attempt')
+@app.route('/attempt', methods=['GET', 'POST'])
 @login_required
 def attempt_page():
-    return render_template('attempt.html')
+    if current_user.id != 1:
+        form = AttemptForm()
+        if form.validate_on_submit():
+            answer = form.answer.data
+            question = request.form.get('question')
+            question_id = request.form.get('question_id')
+            # attempted_user = Users.query.filter_by(username=form.username.data).first() if attempted_user and
+            # attempted_user.check_password_correction( attempted_password=form.password.data ): login_user(
+            # attempted_user) flash(f'Success! The homework has been assigned successfully: {
+            # attempted_user.username}', category='success') return render_template('analyse.html') else: Ωflash(
+            # 'Username and password are not match! Please try again', category='danger')
+            flash(f"Temp {answer} {question} {question_id}", category='success')
+            return exam_page()
+        if form.errors != {}:  # If there are not errors from the validations
+            for err_msg in form.errors.values():
+                flash(f'There was an error with answering the homework: {err_msg}', category='danger')
+
+        return render_template('attempt.html', form=form, question=request.form.get('question'),
+                               question_id=request.form.get('question_id'))
+
+    return login_page()
 
 
 @app.route('/register', methods=['GET', 'POST'])

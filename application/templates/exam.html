@@ -23,7 +23,11 @@
                     <td>{{ question.question }}</td>
                     <td>{{ question.exam_id }}</td>
                     <td>
-                        <button class="btn btn-outline btn-success" datanumber="{{question.id}}" onclick="location.href='{{ url_for('attempt_page')}}'">Try Exam</button>
+                        <form method="POST" action="{{ url_for('attempt_page')}}">
+                            <input id="question_id" name="question_id" type="hidden" value="{{ question.id }}">
+                            <input id="question" name="question" type="hidden" value="{{ question.question }}">
+                            <button class="btn btn-outline btn-success" type="submit" value="Submit">Try Exam</button>
+                        </form>
                     </td>
                 </tr>
             {% endfor %}

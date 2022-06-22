@@ -4,29 +4,25 @@ Exam Page
 {% endblock %}
 
 {% block content %}
-<table class="table table-hover table-dark">
-    <thead>
-    <tr>
-        <!-- Your Columns HERE -->
-        <th scope="col">Student ID</th>
-        <th scope="col">Student username</th>
-        <th scope="col">Incomplete ID's</th>
-        <th scope="col">No. incomplete</th>
-    </tr>
-    </thead>
-    <tbody>
-    {% for user in users %}
-    <tr>
-        <td>{{ user.id }}</td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.outstanding_questions }}</td>
-        {% if user.outstanding_questions is not none %}}
-        <td>{{ user.outstanding_questions.split(",")|length }}</td>
-        {% else %}
-        <td><p>0</p></td>
-        {% endif %}
-    </tr>
-    {% endfor %}
-    </tbody>
-</table>
+<body class="text-center">
+<div class="container">
+    <form method="POST" class="form-register" style="color:white">
+        {{ form.hidden_tag() }}
+        <img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
+        <h1 class="h3 mb-3 font-weight-normal">
+            Please Assign the Homework
+        </h1>
+        <br>
+        {{ form.students.label() }}
+        {{ form.students(class="form-control", placeholder="Students") }}
+
+        {{ form.homeworks.label() }}
+        {{ form.homeworks(class="form-control", placeholder="Homeworks") }}
+        <br>
+
+        {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
+
+    </form>
+</div>
+</body>
 {% endblock %}

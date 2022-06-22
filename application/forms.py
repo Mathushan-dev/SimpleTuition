@@ -1,7 +1,10 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField
+from wtforms import StringField, PasswordField, SubmitField, SelectMultipleField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
 from application.models import Users
+
+studentIds = [('1', 'username1'), ('2', 'username2')]
+questionSetIds = [('1', 'questionSet1'), ('2', 'questionSet2')]
 
 
 class RegisterForm(FlaskForm):
@@ -26,3 +29,14 @@ class LoginForm(FlaskForm):
     username = StringField(label='User Name:', validators=[DataRequired()])
     password = PasswordField(label='Password:', validators=[DataRequired()])
     submit = SubmitField(label='Sign in')
+
+
+class AnswerForm(FlaskForm):
+    answer = StringField(label='Answer:', validators=[DataRequired()])
+    submit = SubmitField(label='Check Answer')
+
+
+class AssignForm(FlaskForm):
+    students = SelectMultipleField(u'Student', choices=studentIds)
+    homeworks = SelectMultipleField(u'Question Set', choices=questionSetIds)
+    submit = SubmitField(label='Assign Homework')

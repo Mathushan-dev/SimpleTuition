@@ -9,7 +9,8 @@
             <tr>
                 <!-- Your Columns HERE -->
                 <th scope="col">ID</th>
-                <th scope="col">Exams</th>
+                <th scope="col">Questions</th>
+                <th scope="col">Exam ID</th>
                 <th scope="col">Options</th>
             </tr>
         </thead>
@@ -20,8 +21,9 @@
                 <tr>
                     <td>{{ question.id }}</td>
                     <td>{{ question.question }}</td>
+                    <td>{{ question.exam_id }}</td>
                     <td>
-                        <button class="btn btn-outline btn-success" onclick="location.href='{{ url_for('attempt_page')}}'">Try Exam</button>
+                        <button class="btn btn-outline btn-success" datanumber="{{question.id}}" onclick="location.href='{{ url_for('attempt_page')}}'">Try Exam</button>
                     </td>
                 </tr>
             {% endfor %}

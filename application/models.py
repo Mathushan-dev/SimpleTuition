@@ -33,6 +33,3 @@ class Questions(db.Model):
     question = db.Column(db.String(length=100), nullable=False, unique=True)
     keywords = db.Column(db.String(length=150), nullable=False)
     exam_id = db.Column(db.Integer(), nullable=False)
-
-    def __repr__(self):
-        return f'Question {self.question}'

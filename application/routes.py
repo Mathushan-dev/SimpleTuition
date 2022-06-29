@@ -26,6 +26,8 @@ def assign_page():
         if form.validate_on_submit():
             students = form.students.data
             homeworks = form.homeworks.data
+
+            # todo flash(f'{students} have been assigned the homeworks {homeworks}', category='success')
             return analyse_page()
 
         if form.errors != {}:

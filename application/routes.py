@@ -1,7 +1,7 @@
 from application import app
-from flask import render_template, redirect, url_for, flash, request
+from flask import render_template, redirect, url_for, flash, request, session
 from application.models import Questions, Users
-from application.forms import RegisterForm, LoginForm, AttemptForm, AssignForm
+from application.forms import RegisterForm, LoginForm, AttemptForm, AnswerForm, AssignForm
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
 
@@ -22,17 +22,13 @@ def portal_page():
 def assign_page():
     if current_user.id == 1:
         form = AssignForm()
+
         if form.validate_on_submit():
             students = form.students.data
             homeworks = form.homeworks.data
-            # attempted_user = Users.query.filter_by(username=form.username.data).first() if attempted_user and
-            # attempted_user.check_password_correction( attempted_password=form.password.data ): login_user(
-            # attempted_user) flash(f'Success! The homework has been assigned successfully: {
-            # attempted_user.username}', category='success') return render_template('analyse.html') else: Ωflash(
-            # 'Username and password are not match! Please try again', category='danger')
-            flash(f"Temp {students} {homeworks}", category='success')
             return analyse_page()
-        if form.errors != {}:  # If there are not errors from the validations
+
+        if form.errors != {}:
             for err_msg in form.errors.values():
                 flash(f'There was an error with assigning the homework: {err_msg}', category='danger')
 
@@ -51,10 +47,21 @@ def analyse_page():
     return login_page()
 
 
-@app.route('/exam')
+@app.route('/exam', methods=['GET', 'POST'])
 @login_required
 def exam_page():
     if current_user.outstanding_questions is not None:
+        form = AttemptForm()
+
+        if form.validate_on_submit():
+            session['question'] = request.form.get('question')
+            session['question_id'] = request.form.get('question_id')
+            return redirect(url_for('attempt_page'))
+
+        if form.errors != {}:  # If there are not errors from the validations
+            for err_msg in form.errors.values():
+                flash(f'There was an error with answering the homework: {err_msg}', category='danger')
+                
         outstanding_questions_list = current_user.outstanding_questions.split(",")
         questions = []
 
@@ -62,7 +69,7 @@ def exam_page():
             question = Questions.query.filter_by(id=question_id).first()
             questions.append(question)
 
-        return render_template('exam.html', questions=questions)
+        return render_template('exam.html', questions=questions, form=form)
 
     return render_template('wohoo.html')
 
@@ -71,24 +78,19 @@ def exam_page():
 @login_required
 def attempt_page():
     if current_user.id != 1:
-        form = AttemptForm()
+        form = AnswerForm()
+
         if form.validate_on_submit():
             answer = form.answer.data
             question = request.form.get('question')
             question_id = request.form.get('question_id')
-            # attempted_user = Users.query.filter_by(username=form.username.data).first() if attempted_user and
-            # attempted_user.check_password_correction( attempted_password=form.password.data ): login_user(
-            # attempted_user) flash(f'Success! The homework has been assigned successfully: {
-            # attempted_user.username}', category='success') return render_template('analyse.html') else: Ωflash(
-            # 'Username and password are not match! Please try again', category='danger')
-            flash(f"Temp {answer} {question} {question_id}", category='success')
-            return exam_page()
-        if form.errors != {}:  # If there are not errors from the validations
+            return redirect(url_for('exam_page'))
+
+        if form.errors != {}:
             for err_msg in form.errors.values():
                 flash(f'There was an error with answering the homework: {err_msg}', category='danger')
 
-        return render_template('attempt.html', form=form, question=request.form.get('question'),
-                               question_id=request.form.get('question_id'))
+        return render_template('attempt.html', form=form, question=session['question'], question_id=session['question_id'])
 
     return login_page()
 
@@ -105,7 +107,8 @@ def register_page():
         login_user(user_to_create)
         flash(f"Account created successfully! You are now logged in as {user_to_create.username}", category='success')
         return render_template('exam.html')
-    if form.errors != {}:  # If there are not errors from the validations
+
+    if form.errors != {}:
         for err_msg in form.errors.values():
             flash(f'There was an error with creating a user: {err_msg}', category='danger')
 
@@ -117,12 +120,14 @@ def login_page():
     form = LoginForm()
     if form.validate_on_submit():
         attempted_user = Users.query.filter_by(username=form.username.data).first()
+
         if attempted_user and attempted_user.check_password_correction(
                 attempted_password=form.password.data
         ):
             login_user(attempted_user)
             flash(f'Success! You are logged in as: {attempted_user.username}', category='success')
             return render_template('portal.html')
+
         else:
             flash('Username and password are not match! Please try again', category='danger')
 

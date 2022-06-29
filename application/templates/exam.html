@@ -15,18 +15,17 @@
             </tr>
         </thead>
         <tbody>
-            <!-- Your rows inside the table HERE: -->
-            <!-- Need to change this to exams instead of questions -->
             {% for question in questions %}
                 <tr>
                     <td>{{ question.id }}</td>
                     <td>{{ question.question }}</td>
                     <td>{{ question.exam_id }}</td>
                     <td>
-                        <form method="POST" action="{{ url_for('attempt_page')}}">
+                        <form method="POST">
+                            {{ form.hidden_tag() }}
                             <input id="question_id" name="question_id" type="hidden" value="{{ question.id }}">
                             <input id="question" name="question" type="hidden" value="{{ question.question }}">
-                            <button class="btn btn-outline btn-success" type="submit" value="Submit">Try Exam</button>
+                            {{ form.submit(class="btn btn-outline-success btn-block") }}
                         </form>
                     </td>
                 </tr>

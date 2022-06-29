@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block title %}
-Exam Page
+Analyse Page
 {% endblock %}
 
 {% block content %}
@@ -20,7 +20,7 @@ Exam Page
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
         <td>{{ user.outstanding_questions }}</td>
-        {% if user.outstanding_questions is not none %}}
+        {% if user.outstanding_questions is not none %}
             <td>{{ user.outstanding_questions.split(",")|length }}</td>
         {% else %}
             <td><p>0</p></td>

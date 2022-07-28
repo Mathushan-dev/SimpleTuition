@@ -37,6 +37,7 @@ def mark_answer(user_answer, mark_scheme):
             for keyword_set in sentence_set:
                 for keyword in keyword_set:
                     if keyword in sentence_to_check:
+                        print("Keyword Found: ", keyword)
                         actual_keyword_set_marks += 1
                         break
 

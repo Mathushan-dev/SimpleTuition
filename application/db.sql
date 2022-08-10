@@ -14,7 +14,7 @@ CREATE TABLE questions (
 );
 
 INSERT INTO questions (id, question, keywords, exam_id)
-VALUES (1, 'What is a cell?', '[["small cells", "tiny cells"], ["cell wall", "cell membrane"]]', 1);
+VALUES (1, 'What is a cell?', '[[["small cells", "tiny cells"], ["cell wall", "cell membrane"]], [["nucleus"], ["DNA", "genetic material"]]]', 1);
 
 UPDATE users
 SET outstanding_questions = '1'

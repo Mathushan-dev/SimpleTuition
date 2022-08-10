@@ -4,6 +4,8 @@ from application.models import Questions, Users
 from application.forms import RegisterForm, LoginForm, AttemptForm, AnswerForm, AssignForm
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
+from application.questionMarker import analyse_answers
+import ast
 
 
 @app.route('/')
@@ -25,9 +27,34 @@ def assign_page():
 
         if form.validate_on_submit():
             students = form.students.data
-            homeworks = form.homeworks.data
+            questions = form.homeworks.data
 
-            # todo flash(f'{students} have been assigned the homeworks {homeworks}', category='success')
+            if students is not None and questions is not None:
+                questions_to_assign_list = []
+
+                for question in questions:
+                    questions_to_assign_list.append(question.split("-")[0].strip())
+
+                for student in students:
+                    student_to_assign = student.split("-")[0].strip()
+
+                    if student_to_assign is not None:
+                        student = Users.query.filter_by(id=student_to_assign).first()
+
+                        if student is not None:
+                            if student.outstanding_questions is not None:
+                                temp_question_list = student.outstanding_questions.split(",")
+
+                                for question in questions_to_assign_list:
+                                    temp_question_list.append(question)
+                                student.outstanding_questions = ",".join(list(dict.fromkeys(temp_question_list)))
+                            else:
+                                student.outstanding_questions = ",".join(questions_to_assign_list)
+
+                            db.session.commit()
+
+                        print(student.outstanding_questions)
+
             return analyse_page()
 
         if form.errors != {}:
@@ -60,10 +87,10 @@ def exam_page():
             session['question_id'] = request.form.get('question_id')
             return redirect(url_for('attempt_page'))
 
-        if form.errors != {}:  # If there are not errors from the validations
+        if form.errors != {}:  # If there are errors from the validations
             for err_msg in form.errors.values():
                 flash(f'There was an error with answering the homework: {err_msg}', category='danger')
-                
+
         outstanding_questions_list = current_user.outstanding_questions.split(",")
         questions = []
 
@@ -84,15 +111,48 @@ def attempt_page():
 
         if form.validate_on_submit():
             answer = form.answer.data
-            question = request.form.get('question')
             question_id = request.form.get('question_id')
+
+            question = Questions.query.filter_by(id=question_id).first()
+            actual_marks, maximum_marks = analyse_answers(answer, ast.literal_eval(question.keywords))
+
+            if actual_marks == maximum_marks:
+                flash(f'You have scored full marks on this question', category='success')
+
+                if current_user.outstanding_questions is not None:
+                    outstanding_questions_list = current_user.outstanding_questions.split(",")
+                    new_outstanding_questions_list = []
+
+                    for outstanding_question_id in outstanding_questions_list:
+                        if outstanding_question_id != question_id:
+                            new_outstanding_questions_list.append(outstanding_question_id)
+
+                    if new_outstanding_questions_list:
+                        current_user.outstanding_questions = ",".join(new_outstanding_questions_list)
+                    current_user.outstanding_questions = None
+                    db.session.commit()
+
+                if current_user.completed_questions is not None:
+                    completed_questions_list = current_user.completed_questions.split(",")
+                else:
+                    completed_questions_list = []
+
+                if question_id not in completed_questions_list:
+                    completed_questions_list.append(question_id)
+                current_user.completed_questions = ",".join(completed_questions_list)
+                db.session.commit()
+
+            else:
+                flash(f'You have scored {actual_marks} marks on this question', category='danger')
+
             return redirect(url_for('exam_page'))
 
         if form.errors != {}:
             for err_msg in form.errors.values():
                 flash(f'There was an error with answering the homework: {err_msg}', category='danger')
 
-        return render_template('attempt.html', form=form, question=session['question'], question_id=session['question_id'])
+        return render_template('attempt.html', form=form, question=session['question'],
+                               question_id=session['question_id'])
 
     return login_page()
 

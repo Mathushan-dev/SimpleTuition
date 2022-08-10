@@ -1,10 +1,27 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectMultipleField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
-from application.models import Users
+from application.models import Questions, Users
 
-studentIds = [('1', 'username1'), ('2', 'username2')]
-questionSetIds = [('1', 'questionSet1'), ('2', 'questionSet2')]
+
+def question_choices():
+    questions = Questions.query.all()
+    question_choices_list = []
+    for question in questions:
+        if question.id not in question_choices_list:
+            question_choices_list.append(str(question.id) + " - " + question.question)
+
+    return question_choices_list
+
+
+def student_choices():
+    students = Users.query.all()
+    student_choices_list = []
+    for student in students:
+        if student.id not in student_choices_list:
+            student_choices_list.append(str(student.id) + " - " + student.username)
+
+    return student_choices_list
 
 
 class RegisterForm(FlaskForm):
@@ -41,6 +58,6 @@ class AttemptForm(FlaskForm):
 
 
 class AssignForm(FlaskForm):
-    students = SelectMultipleField(u'Student', choices=studentIds)
-    homeworks = SelectMultipleField(u'Question Set', choices=questionSetIds)
+    students = SelectMultipleField(u'Student', choices=student_choices)
+    homeworks = SelectMultipleField(u'Question Set', choices=question_choices)
     submit = SubmitField(label='Assign Homework')

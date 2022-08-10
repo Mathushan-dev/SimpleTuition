@@ -1,4 +1,4 @@
-def analyse_answers(user_answer, mark_scheme, orderRequired):
+def analyse_answers(user_answer, mark_scheme):
     """
     [[["small cells", "tiny cells"], ["cell wall", "cell membrane"]], [["nucleus"], ["DNA", "genetic material"]]]
 
@@ -51,10 +51,13 @@ def mark_answer(user_answer, mark_scheme):
 
 def test_analyse_answers():
     answer = [[["bacteria cell is smaller", "bacteria cells are smaller","plant cell is larger", "plant cells are larger"]],[["plant cells have chloroplasts","plant cell has chloroplast"]],[["plant cells have vacuole","plant cell has vacuole"]],[["bacteria cells have slime capsules","bacteria cell has slime capsule"]],[["bacteria cells have flagella","bacteria cell has flagellum"]],[["plant cells have nucleus","plant cell has nucleus","bacteria cells have no nucleus","bacteria cell has no nucleus"]],[["cell wall"],["plant"],["cellulose"]],[["bacteria cells have plasmid DNA","bacteria cell has plasmid DNA"]]]
-    assert (analyse_answers("They are small cells with a cell membrane. They have a nucleus with DNA in it.", answer, False) == (0, 8))
+    assert (analyse_answers("They are small cells with a cell membrane. They have a nucleus with DNA in it.",
+                            answer) == (0, 8))
     answer = [[["stores","contains"],["DNA","genetic material"]],[["controls"],["activities","what the cell does"]]]
-    assert (analyse_answers("The nucleus controls the cell's activities. It contains DNA.", answer, False) == (1, 2))
+    assert (analyse_answers("The nucleus controls the cell's activities. It contains DNA.", answer) == (1, 2))
     answer = [[["small", "tiny"], ["cell wall", "cell membrane"]], [["nucleus"], ["DNA", "genetic material"]]]
-    assert (analyse_answers("The cells are small and have cell membrane. The cells are small. The cell's nucleus contain DNA.", answer, False) == (2, 2))
+    assert (analyse_answers(
+        "The cells are small and have cell membrane. The cells are small. The cell's nucleus contain DNA.", answer) == (2, 2))
     answer = [[["small", "tiny"], ["cell wall", "cell membrane"]], [["nucleus"], ["DNA", "genetic material"]]]
-    assert (analyse_answers("The cells are small and have cell membrane. The cells are small and have cell membrane.", answer, False) == (1, 2))
+    assert (analyse_answers("The cells are small and have cell membrane. The cells are small and have cell membrane.",
+                            answer) == (1, 2))

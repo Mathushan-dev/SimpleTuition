@@ -8,9 +8,9 @@ CREATE TABLE users (
 );
 CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
-    question VARCHAR(150) NOT NULL,
-    keywords VARCHAR(150) NOT NULL,
-    exam_id INTEGER NOT NULL
+    question VARCHAR(1024) NOT NULL,
+    keywords VARCHAR(1024) NOT NULL,
+    exam_id VARCHAR(50) NOT NULL
 );
 
 INSERT INTO questions (id, question, keywords, exam_id)

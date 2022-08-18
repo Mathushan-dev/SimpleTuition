@@ -53,20 +53,20 @@ https://templatemo.com/tm-563-seo-dream
         <div class="col-12">
           <nav class="main-nav">
             <!-- ***** Logo Start ***** -->
-            <a href="index.html" class="logo">
-              <h4>SEO Dream <img src="../static/assets/images/logo-icon.png" alt=""></h4>
+            <a href="{{ url_for('home_page') }}" class="logo">
+              <h4>Simple Tuition</h4>
             </a>
             <!-- ***** Logo End ***** -->
             <!-- ***** Menu Start ***** -->
             <ul class="nav">
               <li class="scroll-to-section"><a href="#top" class="active">Home</a></li>
-              <li class="scroll-to-section"><a href="#features">Features</a></li>
+              <li class="scroll-to-section"><a href="#features">Subjects</a></li>
               <li class="scroll-to-section"><a href="#about">About Us</a></li>
               <li class="scroll-to-section"><a href="#services">Services</a></li>
               <li class="nav-item active"><a href="{{ url_for('portal_page') }}">Portal</a></li>
-              <li class="scroll-to-section"><a href="#portfolio">Portfolio</a></li>
+              <li class="scroll-to-section"><a href="#portfolio">Reviews</a></li>
               <li class="scroll-to-section"><a href="#contact">Contact Us</a></li> 
-              <li class="scroll-to-section"><div class="main-blue-button"><a href="#contact">Get Your Quote</a></div></li>
+              <li class="scroll-to-section"><div class="main-blue-button"><a href="#contact">Register your interest</a></div></li>
             </ul>
             <a class='menu-trigger'>
                 <span>Menu</span>
@@ -89,20 +89,20 @@ https://templatemo.com/tm-563-seo-dream
                 <div class="row">
                   <div class="col-lg-4 col-sm-4">
                     <div class="info-stat">
-                      <h6>Ages:</h6>
-                      <h4>x-y</h4>
+                      <h6>Year groups:</h6>
+                      <h4>8 - 13</h4>
                     </div>
                   </div>
                   <div class="col-lg-4 col-sm-4">
                     <div class="info-stat">
                       <h6>Price:</h6>
-                      <h4>£x/hr</h4>
+                      <h4>£20/hr</h4>
                     </div>
                   </div>
                   <div class="col-lg-4 col-sm-4">
                     <div class="info-stat">
                       <h6>Subjects:</h6>
-                      <h4>Maths,Science</h4>
+                      <h4>Maths & Sciences</h4>
                     </div>
                   </div>
                   <div class="col-lg-12">
@@ -110,7 +110,7 @@ https://templatemo.com/tm-563-seo-dream
                   </div>
                   <div class="col-lg-12">
                     <div class="main-green-button scroll-to-section">
-                      <a href="#contact">Get Your Quote</a>
+                      <a href="#contact">Register your interest</a>
                     </div>
                   </div>
                 </div>
@@ -139,9 +139,9 @@ https://templatemo.com/tm-563-seo-dream
                     <h6>01</h6>
                   </div>
                   <div class="icon"></div>
-                  <h4>Reach Out</h4>
+                  <h4>Mathematics</h4>
                   <div class="line-dec"></div>
-                  <p>This HTML5 template is based on Bootstrap 5 CSS. You are free to customize anything.</p>
+                  <p>Currently teaching: KS3, GCSE, A-Level (inc. Further Mathematics)</p>
                 </div>
               </div>
               <div class="col-lg-3">
@@ -150,9 +150,10 @@ https://templatemo.com/tm-563-seo-dream
                     <h6>02</h6>
                   </div>
                   <div class="icon"></div>
-                  <h4>Develop a Strategy</h4>
+                  <h4>Biology</h4>
                   <div class="line-dec"></div>
-                  <p>Lorem ipsum dolor sit ameter consectetur adipiscing li elit sed do eiusmod.</p>
+                  <p>Currently teaching: KS3, GCSE</p>
+                    <p>Please contact for AS-Level and A-Level tutoring</p>
                 </div>
               </div>
               <div class="col-lg-3">
@@ -161,10 +162,10 @@ https://templatemo.com/tm-563-seo-dream
                     <h6>03</h6>
                   </div>
                   <div class="icon"></div>
-                  <h4>Implementation</h4>
+                  <h4>Chemistry</h4>
                   <div class="line-dec"></div>
-                  <p>If this template is useful for your website, please consider to <a rel="nofollow" href="https://www.paypal.me/templatemo" target="_blank">support us</a> a little.</p>
-                </div>
+                  <p>Currently teaching: KS3, GCSE</p>
+                    <p>Please contact for AS-Level and A-Level tutoring</p>                </div>
               </div>
               <div class="col-lg-3">
                 <div class="features-item second-feature last-features-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s">
@@ -172,9 +173,22 @@ https://templatemo.com/tm-563-seo-dream
                     <h6>04</h6>
                   </div>
                   <div class="icon"></div>
-                  <h4>Analyze the result</h4>
+                  <h4>Physics</h4>
                   <div class="line-dec"></div>
-                  <p>Below circular progress bar animation supports those CSS values 10, 20, 30, till 100.</p>
+                  <p>Currently teaching: KS3, GCSE</p>
+                    <p>Please contact for AS-Level and A-Level tutoring</p>                </div>
+              </div>
+                <div class="col-lg-1">
+                <div class="features-item first-feature last-features-item wow fadeInUp" data-wow-duration="1s" data-wow-delay="0.6s">
+                  <div class="first-number number">
+                    <h6>05</h6>
+                  </div>
+                  <div class="icon"></div>
+                  <h4>Computer Science</h4>
+                  <div class="line-dec"></div>
+                  <p>Currently teaching: GCSE</p>
+                    <p>Please contact for AS-Level and A-Level tutoring</p>
+                    <p>Note programming languages offered: Python, Java, C, Haskell</p>
                 </div>
               </div>
             </div>
@@ -195,7 +209,7 @@ https://templatemo.com/tm-563-seo-dream
                     <div class="progress-value">
                       <div>
                         80%<br>
-                        <span>HTML/CSS/JS</span>
+                        <span>Grade 7-9 - Maths</span>
                       </div>
                     </div>
                   </div>
@@ -203,7 +217,7 @@ https://templatemo.com/tm-563-seo-dream
               </div>
               <div class="col-lg-3">
                 <div class="skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.2s">
-                  <div class="progress" data-percentage="60">
+                  <div class="progress" data-percentage="80">
                     <span class="progress-left">
                       <span class="progress-bar"></span>
                     </span>
@@ -212,8 +226,8 @@ https://templatemo.com/tm-563-seo-dream
                     </span>
                     <div class="progress-value">
                       <div>
-                        60%<br>
-                        <span>Wordpress</span>
+                        80%<br>
+                        <span>Grade 7-9 - Biology</span>
                       </div>
                     </div>
                   </div>
@@ -221,7 +235,7 @@ https://templatemo.com/tm-563-seo-dream
               </div>
               <div class="col-lg-3">
                 <div class="skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.4s">
-                  <div class="progress" data-percentage="90">
+                  <div class="progress" data-percentage="80">
                     <span class="progress-left">
                       <span class="progress-bar"></span>
                     </span>
@@ -230,8 +244,8 @@ https://templatemo.com/tm-563-seo-dream
                     </span>
                     <div class="progress-value">
                       <div>
-                        90%<br>
-                        <span>Marketing</span>
+                        80%<br>
+                        <span>Grade 7-9 - Chemistry</span>
                       </div>
                     </div>
                   </div>
@@ -239,7 +253,7 @@ https://templatemo.com/tm-563-seo-dream
               </div>
               <div class="col-lg-3">
                 <div class="skill-item last-skill-item wow fadeIn" data-wow-duration="1s" data-wow-delay="0.6s">
-                  <div class="progress" data-percentage="70">
+                  <div class="progress" data-percentage="80">
                     <span class="progress-left">
                       <span class="progress-bar"></span>
                     </span>
@@ -248,8 +262,8 @@ https://templatemo.com/tm-563-seo-dream
                     </span>
                     <div class="progress-value">
                       <div>
-                        70%<br>
-                        <span>Photoshop</span>
+                        80%<br>
+                        <span>Grade 7-9 - Physics</span>
                       </div>
                     </div>
                   </div>
@@ -273,30 +287,30 @@ https://templatemo.com/tm-563-seo-dream
         <div class="col-lg-6 align-self-center wow fadeInRight" data-wow-duration="1s" data-wow-delay="0.5s">
           <div class="section-heading">
             <h6>About Us</h6>
-            <h2>Top <em>marketing</em> agency &amp; consult your website <span>with us</span></h2>
+            <h2>Top <em>Tutoring</em> firm for student progress <span>Join Us Now</span></h2>
           </div>
           <div class="row">
             <div class="col-lg-4 col-sm-4">
               <div class="about-item">
-                <h4>750+</h4>
-                <h6>projects finished</h6>
+                <h4>30+</h4>
+                <h6>Students</h6>
               </div>
             </div>
             <div class="col-lg-4 col-sm-4">
               <div class="about-item">
-                <h4>340+</h4>
-                <h6>happy clients</h6>
+                <h4>5+</h4>
+                <h6>Subjects</h6>
               </div>
             </div>
             <div class="col-lg-4 col-sm-4">
               <div class="about-item">
-                <h4>128+</h4>
-                <h6>awards</h6>
+                <h4>100%</h4>
+                <h6>Satisfaction</h6>
               </div>
             </div>
           </div>
-          <p><a rel="nofollow" href="https://templatemo.com/tm-563-seo-dream" target="_parent">SEO Dream</a> is free digital marketing CSS template provided by TemplateMo website. You are allowed to use this template for your business websites. Please DO NOT redistribute this template ZIP file on any Free CSS collection websites. You may contact us for more information. Thank you.</p>
-          <div class="main-green-button"><a href="#">Discover company</a></div>
+          <p><a rel="nofollow" href="{{ url_for('home_page') }}" target="_parent">Simple Tuition</a> is founded by Nirusa Uthayasooriyan MEng Biomedical Engineering (First Class Honours). We are a group of graduates providing student tailored lessons for all abilities. Our mission is to revise and practise exam techniques so students can walk into the exam hall with confidence.</p>
+          <div class="main-green-button"><a href="#contact">Register now</a></div>
         </div>
       </div>
     </div>
@@ -308,7 +322,7 @@ https://templatemo.com/tm-563-seo-dream
         <div class="col-lg-6 offset-lg-3">
           <div class="section-heading wow bounceIn" data-wow-duration="1s" data-wow-delay="0.2s">
             <h6>Our Services</h6>
-            <h2>Discover What We Do &amp; <span>Offer</span> To Our <em>Clients</em></h2>
+            <h2>Discover What We Do &amp; <span>Offer</span> To Our <em>Students</em></h2>
           </div>
         </div>
       </div>
@@ -325,8 +339,8 @@ https://templatemo.com/tm-563-seo-dream
               </div>
               <div class="col-lg-8">
                 <div class="right-content">
-                  <h4>Similar Websites</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                  <h4>Revision Website</h4>
+                  <p>Our self-made portal offers a unique experience to practise answering science questions until the perfect wording is achieved; cross-referenced with over eight years of mark-schemes.</p>
                 </div>
               </div>
             </div>
@@ -342,15 +356,15 @@ https://templatemo.com/tm-563-seo-dream
               </div>
               <div class="col-lg-8">
                 <div class="right-content">
-                  <h4>Website Trends</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                  <h4>Fast-paced Learning</h4>
+                  <p>On average our GCSE Maths students finish the syllabus in five months. And we spend the remaining 14 months practising Grade 7-9 exam style questions.</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-4">
-          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.5s">
+          <div class="col-lg-4">
+          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.4s">
             <div class="row">
               <div class="col-lg-4">
                 <div class="icon">
@@ -359,59 +373,8 @@ https://templatemo.com/tm-563-seo-dream
               </div>
               <div class="col-lg-8">
                 <div class="right-content">
-                  <h4>Traffic Analysis</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.6s">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="icon">
-                  <img src="../static/assets/images/service-icon-03.png" alt="">
-                </div>
-              </div>
-              <div class="col-lg-8">
-                <div class="right-content">
-                  <h4>Optimizing Keywords</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.7s">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="icon">
-                  <img src="../static/assets/images/service-icon-01.png" alt="">
-                </div>
-              </div>
-              <div class="col-lg-8">
-                <div class="right-content">
-                  <h4>Page Optimizations</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4">
-          <div class="service-item wow bounceInUp" data-wow-duration="1s" data-wow-delay="0.8s">
-            <div class="row">
-              <div class="col-lg-4">
-                <div class="icon">
-                  <img src="../static/assets/images/service-icon-02.png" alt="">
-                </div>
-              </div>
-              <div class="col-lg-8">
-                <div class="right-content">
-                  <h4>Deep URL Analysis</h4>
-                  <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium dormque laudantium.</p>
+                  <h4>Discounted Prices</h4>
+                  <p>Contact us for discounted prices if your child is taking classes for three hours or more. Note - GCSE Science classes will be two hours per week./p>
                 </div>
               </div>
             </div>
@@ -426,8 +389,8 @@ https://templatemo.com/tm-563-seo-dream
       <div class="row">
         <div class="col-lg-5">
           <div class="section-heading wow fadeInLeft" data-wow-duration="1s" data-wow-delay="0.3s">
-            <h6>Our Portofolio</h6>
-            <h2>Discover Our Recent <em>Projects</em> And <span>Showcases</span></h2>
+            <h6>Our Reviews</h6>
+            <h2>Discover Our Recent <em>Reviews</em> From <span>Previous Students</span></h2>
           </div>
         </div>
       </div>

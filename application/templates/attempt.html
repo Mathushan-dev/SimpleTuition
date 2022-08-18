@@ -5,19 +5,19 @@ Attempt Page
 {% block content %}
 <body class="text-center">
 <div class="container">
-    <form method="POST" class="form-register" style="color:white">
+    <form method="POST" class="form-register" style="color:black">
         {{ form.hidden_tag() }}
         <input id="question_id" name="question_id" type="hidden" value="{{ question_id }}">
         <input id="question" name="question" type="hidden" value="{{ question }}">
-        <img class="mb-4" src="https://res.cloudinary.com/jimshapedcoding/image/upload/v1597332609/android-icon-192x192_ove2a7.png" alt="">
+        <br>
+        <br>
         <h1 class="h3 mb-3 font-weight-normal">
             {{ question }}
         </h1>
         <br>
-        {{ form.answer.label() }}
-        {{ form.answer(class="form-control", placeholder="Answer") }}
+        {{ form.answer(class=".form-control-lg")}}
         <br>
-
+        <br>
         {{ form.submit(class="btn btn-lg btn-block btn-primary") }}
 
     </form>

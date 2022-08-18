@@ -1,6 +1,8 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField, SelectMultipleField
 from wtforms.validators import Length, EqualTo, Email, DataRequired, ValidationError
+from wtforms.widgets import TextArea
+
 from application.models import Questions, Users
 
 
@@ -49,12 +51,12 @@ class LoginForm(FlaskForm):
 
 
 class AnswerForm(FlaskForm):
-    answer = StringField(label='Answer:', validators=[DataRequired()])
+    answer = StringField(label='Answer:', widget=TextArea(), validators=[DataRequired()], render_kw={"rows": 10, "cols": 100})
     submit = SubmitField(label='Check Answer')
 
 
 class AttemptForm(FlaskForm):
-    submit = SubmitField(label='Try Exam')
+    submit = SubmitField(label='Attempt')
 
 
 class AssignForm(FlaskForm):

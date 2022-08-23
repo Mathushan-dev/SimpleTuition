@@ -114,7 +114,7 @@ def attempt_page():
             question_id = request.form.get('question_id')
 
             question = Questions.query.filter_by(id=question_id).first()
-            actual_marks, maximum_marks = analyse_answers(answer, ast.literal_eval(question.keywords))
+            actual_marks, maximum_marks = analyse_answers(answer.lower(), ast.literal_eval(question.keywords.lower()))
 
             if actual_marks == maximum_marks:
                 flash(f'You have scored full marks on this question', category='success')
@@ -129,7 +129,8 @@ def attempt_page():
 
                     if new_outstanding_questions_list:
                         current_user.outstanding_questions = ",".join(new_outstanding_questions_list)
-                    current_user.outstanding_questions = None
+                    else:
+                        current_user.outstanding_questions = None
                     db.session.commit()
 
                 if current_user.completed_questions is not None:
@@ -141,6 +142,8 @@ def attempt_page():
                     completed_questions_list.append(question_id)
                 current_user.completed_questions = ",".join(completed_questions_list)
                 db.session.commit()
+                print(current_user.outstanding_questions)
+                print(current_user.completed_questions)
 
             else:
                 flash(f'You have scored {actual_marks} marks on this question', category='danger')

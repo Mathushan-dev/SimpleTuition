@@ -53,6 +53,7 @@ class LoginForm(FlaskForm):
 class AnswerForm(FlaskForm):
     answer = StringField(label='Answer:', widget=TextArea(), validators=[DataRequired()], render_kw={"rows": 10, "cols": 100})
     submit = SubmitField(label='Check Answer')
+    report = SubmitField(label='Report (Enter your answer before reporting! No excuses!)')
 
 
 class AttemptForm(FlaskForm):

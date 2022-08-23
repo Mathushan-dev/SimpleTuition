@@ -4,7 +4,8 @@ CREATE TABLE users (
     email_address VARCHAR(50) NOT NULL,
     password_hash VARCHAR(60) NOT NULL,
     outstanding_questions VARCHAR(1024),
-    completed_questions VARCHAR(1024)
+    completed_questions VARCHAR(1024),
+    log TEXT NOT NULL
 );
 CREATE TABLE questions (
     id SERIAL PRIMARY KEY,

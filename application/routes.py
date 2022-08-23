@@ -5,6 +5,7 @@ from application.forms import RegisterForm, LoginForm, AttemptForm, AnswerForm, 
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
 from application.questionMarker import analyse_answers
+from datetime import datetime
 import ast
 
 
@@ -112,6 +113,12 @@ def attempt_page():
         if form.validate_on_submit():
             answer = form.answer.data
             question_id = request.form.get('question_id')
+
+            now = datetime.now()
+            current_user_log = current_user.log
+            current_user_log += now + ": Attempted question - " + question_id + " with answer - " + answer
+            current_user.log = current_user_log
+            db.session.commit()
 
             question = Questions.query.filter_by(id=question_id).first()
             actual_marks, maximum_marks = analyse_answers(answer.lower(), ast.literal_eval(question.keywords.lower()))

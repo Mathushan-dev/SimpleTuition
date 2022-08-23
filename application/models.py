@@ -15,6 +15,7 @@ class Users(db.Model, UserMixin):
     password_hash = db.Column(db.String(length=60), nullable=False)
     outstanding_questions = db.Column(db.String(), nullable=False)
     completed_questions = db.Column(db.String(), nullable=False)
+    log = db.Column(db.String(), nullable=False)
 
     @property
     def password(self):

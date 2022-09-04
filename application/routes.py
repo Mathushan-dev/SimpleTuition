@@ -115,7 +115,7 @@ def attempt_page():
             answer = form.answer.data.strip()
             question_id = request.form.get('question_id').strip()
 
-            attempt_interval_0 = timeit.timeit()
+            start = timeit.timeit()
 
             if form.report.data:
                 now = datetime.now()
@@ -124,14 +124,14 @@ def attempt_page():
                 current_user_log += timestamp + ": Attempted question - " + question_id + " with answer - " + answer + "\n"
                 current_user.log = current_user_log
                 db.session.commit()
-                attempt_interval_1 = timeit.timeit()
-                print(attempt_interval_1-attempt_interval_0)
+                print("1: " + timeit.timeit() - start)
+                start = timeit.timeit()
 
             attempt_interval_1 = timeit.timeit()
             question = Questions.query.filter_by(id=question_id).first()
             actual_marks, maximum_marks = analyse_answers(answer.lower(), ast.literal_eval(question.keywords.lower()))
-            attempt_interval_2 = timeit.timeit()
-            print(attempt_interval_2-attempt_interval_1)
+            print("2: " + timeit.timeit() - start)
+            start = timeit.timeit()
 
             if actual_marks == maximum_marks:
                 flash(f'You have scored full marks on this question', category='success')
@@ -139,37 +139,35 @@ def attempt_page():
                 if current_user.outstanding_questions is not None:
                     outstanding_questions_list = current_user.outstanding_questions.split(",")
                     new_outstanding_questions_list = []
-                    attempt_interval_3 = timeit.timeit()
-                    print(attempt_interval_3-attempt_interval_2)
+                    print("3: " + timeit.timeit() - start)
+                    start = timeit.timeit()
 
                     for outstanding_question_id in outstanding_questions_list:
                         if outstanding_question_id != question_id:
                             new_outstanding_questions_list.append(outstanding_question_id)
-                    attempt_interval_4 = timeit.timeit()
-                    print(attempt_interval_4-attempt_interval_3)
+                    print("4: " + timeit.timeit() - start)
+                    start = timeit.timeit()
 
                     if new_outstanding_questions_list:
                         current_user.outstanding_questions = ",".join(new_outstanding_questions_list)
                     else:
                         current_user.outstanding_questions = None
                     db.session.commit()
-                    attempt_interval_5 = timeit.timeit()
-                    print(attempt_interval_5-attempt_interval_4)
+                    print("5: " + timeit.timeit() - start)
+                    start = timeit.timeit()
 
-                attempt_interval_5 = timeit.timeit()
                 if current_user.completed_questions is not None:
                     completed_questions_list = current_user.completed_questions.split(",")
                 else:
                     completed_questions_list = []
-                attempt_interval_6 = timeit.timeit()
-                print(attempt_interval_6-attempt_interval_5)
+                print("6: " + timeit.timeit() - start)
+                start = timeit.timeit()
 
                 if question_id not in completed_questions_list:
                     completed_questions_list.append(question_id)
                 current_user.completed_questions = ",".join(completed_questions_list)
                 db.session.commit()
-                attempt_interval_7 = timeit.timeit()
-                print(attempt_interval_7-attempt_interval_6)
+                print("7: " + timeit.timeit() - start)
 
             else:
                 flash(f'You have scored {actual_marks} marks on this question', category='danger')

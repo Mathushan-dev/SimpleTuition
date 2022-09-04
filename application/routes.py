@@ -127,7 +127,6 @@ def attempt_page():
                 print("1: " + str(timeit.timeit() - start))
                 start = timeit.timeit()
 
-            attempt_interval_1 = timeit.timeit()
             question = Questions.query.filter_by(id=question_id).first()
             actual_marks, maximum_marks = analyse_answers(answer.lower(), ast.literal_eval(question.keywords.lower()))
             print("2: " + str(timeit.timeit() - start))

@@ -127,6 +127,7 @@ def attempt_page():
                 attempt_interval_1 = timeit.timeit()
                 print(attempt_interval_1-attempt_interval_0)
 
+            attempt_interval_1 = timeit.timeit()
             question = Questions.query.filter_by(id=question_id).first()
             actual_marks, maximum_marks = analyse_answers(answer.lower(), ast.literal_eval(question.keywords.lower()))
             attempt_interval_2 = timeit.timeit()
@@ -155,6 +156,7 @@ def attempt_page():
                     attempt_interval_5 = timeit.timeit()
                     print(attempt_interval_5-attempt_interval_4)
 
+                attempt_interval_5 = timeit.timeit()
                 if current_user.completed_questions is not None:
                     completed_questions_list = current_user.completed_questions.split(",")
                 else:

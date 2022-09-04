@@ -124,13 +124,13 @@ def attempt_page():
                 current_user_log += timestamp + ": Attempted question - " + question_id + " with answer - " + answer + "\n"
                 current_user.log = current_user_log
                 db.session.commit()
-                print("1: " + timeit.timeit() - start)
+                print("1: " + str(timeit.timeit() - start))
                 start = timeit.timeit()
 
             attempt_interval_1 = timeit.timeit()
             question = Questions.query.filter_by(id=question_id).first()
             actual_marks, maximum_marks = analyse_answers(answer.lower(), ast.literal_eval(question.keywords.lower()))
-            print("2: " + timeit.timeit() - start)
+            print("2: " + str(timeit.timeit() - start))
             start = timeit.timeit()
 
             if actual_marks == maximum_marks:
@@ -139,13 +139,13 @@ def attempt_page():
                 if current_user.outstanding_questions is not None:
                     outstanding_questions_list = current_user.outstanding_questions.split(",")
                     new_outstanding_questions_list = []
-                    print("3: " + timeit.timeit() - start)
+                    print("3: " + str(timeit.timeit() - start))
                     start = timeit.timeit()
 
                     for outstanding_question_id in outstanding_questions_list:
                         if outstanding_question_id != question_id:
                             new_outstanding_questions_list.append(outstanding_question_id)
-                    print("4: " + timeit.timeit() - start)
+                    print("4: " + str(timeit.timeit() - start))
                     start = timeit.timeit()
 
                     if new_outstanding_questions_list:
@@ -153,21 +153,21 @@ def attempt_page():
                     else:
                         current_user.outstanding_questions = None
                     db.session.commit()
-                    print("5: " + timeit.timeit() - start)
+                    print("5: " + str(timeit.timeit() - start))
                     start = timeit.timeit()
 
                 if current_user.completed_questions is not None:
                     completed_questions_list = current_user.completed_questions.split(",")
                 else:
                     completed_questions_list = []
-                print("6: " + timeit.timeit() - start)
+                print("6: " + str(timeit.timeit() - start))
                 start = timeit.timeit()
 
                 if question_id not in completed_questions_list:
                     completed_questions_list.append(question_id)
                 current_user.completed_questions = ",".join(completed_questions_list)
                 db.session.commit()
-                print("7: " + timeit.timeit() - start)
+                print("7: " + str(timeit.timeit() - start))
 
             else:
                 flash(f'You have scored {actual_marks} marks on this question', category='danger')

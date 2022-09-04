@@ -111,8 +111,8 @@ def attempt_page():
         form = AnswerForm()
 
         if form.validate_on_submit():
-            answer = form.answer.data
-            question_id = request.form.get('question_id')
+            answer = form.answer.data.strip()
+            question_id = request.form.get('question_id').strip()
 
             if form.report.data:
                 now = datetime.now()

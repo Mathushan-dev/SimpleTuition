@@ -9,10 +9,8 @@ def analyse_answers(user_answer, mark_scheme):
     CASE WILL NOT BE ACCOUNTED FOR
     """
     maximum_marks = len(mark_scheme)
-    print(maximum_marks)
     actual_marks = mark_answer(user_answer, mark_scheme)
 
-    print("Marks:", actual_marks, " out of ", maximum_marks)
     return actual_marks, maximum_marks
 
 

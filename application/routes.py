@@ -136,7 +136,7 @@ def attempt_page():
                 flash(f'You have scored full marks on this question', category='success')
 
                 if current_user.outstanding_questions is not None:
-                    outstanding_questions_list = current_user.outstanding_questions.split(",")
+                    outstanding_questions_list = str(current_user.outstanding_questions).split(",")
                     new_outstanding_questions_list = []
                     print("3: " + str(timeit.timeit() - start))
                     start = timeit.timeit()
@@ -156,7 +156,7 @@ def attempt_page():
                     start = timeit.timeit()
 
                 if current_user.completed_questions is not None:
-                    completed_questions_list = current_user.completed_questions.split(",")
+                    completed_questions_list = str(current_user.completed_questions).split(",")
                 else:
                     completed_questions_list = []
                 print("6: " + str(timeit.timeit() - start))

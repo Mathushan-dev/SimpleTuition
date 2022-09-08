@@ -16,7 +16,7 @@ def analyse_answers(user_answer, mark_scheme):
 
 def mark_answer(user_answer, mark_scheme):
     actual_marks = 0
-    correct_keywords = []
+    correct_answers = []
 
     user_answer_sentences = user_answer.split(".")
 
@@ -34,11 +34,11 @@ def mark_answer(user_answer, mark_scheme):
                 for keyword in keyword_set:
                     if keyword in sentence_to_check:
                         actual_keyword_set_marks += 1
-                        correct_keywords.append(keyword)
                         break
 
             if actual_keyword_set_marks == maximum_keyword_set_marks:
                 actual_marks += 1
+                correct_answers.append(sentence_to_check)
                 found_sentence_set = sentence_set
                 progress = False
                 break
@@ -46,4 +46,4 @@ def mark_answer(user_answer, mark_scheme):
         if progress:
             found_sentence_set = None
 
-    return actual_marks, correct_keywords
+    return actual_marks, correct_answers

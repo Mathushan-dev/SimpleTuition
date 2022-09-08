@@ -160,7 +160,7 @@ def attempt_page():
                 flash(f'There was an error with answering the homework: {err_msg}', category='danger')
 
         return render_template('attempt.html', form=form, question=session['question'],
-                               question_id=session['question_id'], correct_answers=correct_answers)
+                               question_id=session['question_id'])
 
     return login_page()
 

@@ -121,7 +121,7 @@ def attempt_page():
                 db.session.commit()
 
             question = Questions.query.filter_by(id=question_id).first()
-            actual_marks, maximum_marks = analyse_answers(answer.lower(), ast.literal_eval(question.keywords.lower()))
+            actual_marks, maximum_marks, correct_answers = analyse_answers(answer.lower(), ast.literal_eval(question.keywords.lower()))
 
             if actual_marks == maximum_marks:
                 flash(f'You have scored full marks on this question', category='success')
@@ -153,13 +153,14 @@ def attempt_page():
                 return redirect(url_for('exam_page'))
 
             flash(f'You have scored {actual_marks} marks on this question', category='danger')
+            flash(f'You have scored marks on the following sentence:\n {correct_answers} marks on this question', category='danger')
 
         if form.errors != {}:
             for err_msg in form.errors.values():
                 flash(f'There was an error with answering the homework: {err_msg}', category='danger')
 
         return render_template('attempt.html', form=form, question=session['question'],
-                               question_id=session['question_id'])
+                               question_id=session['question_id'], correct_answers=correct_answers)
 
     return login_page()
 

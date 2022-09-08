@@ -9,13 +9,14 @@ def analyse_answers(user_answer, mark_scheme):
     CASE WILL NOT BE ACCOUNTED FOR
     """
     maximum_marks = len(mark_scheme)
-    actual_marks = mark_answer(user_answer, mark_scheme)
+    actual_marks, correct_answers = mark_answer(user_answer, mark_scheme)
 
-    return actual_marks, maximum_marks
+    return actual_marks, maximum_marks, correct_answers
 
 
 def mark_answer(user_answer, mark_scheme):
     actual_marks = 0
+    correct_sentences = []
 
     user_answer_sentences = user_answer.split(".")
 
@@ -25,6 +26,7 @@ def mark_answer(user_answer, mark_scheme):
         progress = True
         if found_sentence_set is not None:
             mark_scheme.remove(found_sentence_set)
+            correct_sentences.append(found_sentence_set)
         for sentence_set in mark_scheme:
             actual_keyword_set_marks = 0
             maximum_keyword_set_marks = len(sentence_set)
@@ -44,4 +46,4 @@ def mark_answer(user_answer, mark_scheme):
         if progress:
             found_sentence_set = None
 
-    return actual_marks
+    return actual_marks, correct_sentences

@@ -7,6 +7,7 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://Mathushan-dev:v2_3tuJi_EGgni22pJR3jSmZSXYPeE2T@db.bit.io/Mathushan-dev/dbsimpletuition'
 app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 bcrypt = Bcrypt(app)
 login_manager = LoginManager(app)

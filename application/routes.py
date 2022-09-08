@@ -7,7 +7,6 @@ from flask_login import login_user, logout_user, login_required, current_user
 from application.questionMarker import analyse_answers
 from datetime import datetime
 import ast
-import timeit
 
 
 @app.route('/')
@@ -54,8 +53,6 @@ def assign_page():
                                 student.outstanding_questions = ",".join(questions_to_assign_list)
 
                             db.session.commit()
-
-                        print(student.outstanding_questions)
 
             return analyse_page()
 

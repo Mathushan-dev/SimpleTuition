@@ -152,7 +152,7 @@ def attempt_page():
 
                 return redirect(url_for('exam_page'))
 
-            flash(f'You have scored {actual_marks} marks on this question', category='danger')
+            flash(f'You have scored {actual_marks} marks out of {maximum_marks} on this question', category='danger')
             flash(f'You have scored marks for the following keywords:\n {correct_answers} marks on this question', category='success')
 
         if form.errors != {}:

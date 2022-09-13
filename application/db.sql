@@ -1,17 +1,17 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(30) NOT NULL,
-    email_address VARCHAR(50) NOT NULL,
+    username VARCHAR(20) NOT NULL,
+    email_address VARCHAR(25) NOT NULL,
     password_hash VARCHAR(60) NOT NULL,
-    outstanding_questions VARCHAR(1024),
-    completed_questions VARCHAR(1024),
-    log TEXT NOT NULL
+    outstanding_questions VARCHAR(250),
+    completed_questions VARCHAR(250),
+    log VARCHAR(250) NOT NULL
 );
 CREATE TABLE questions (
     id SERIAL PRIMARY KEY,
-    question VARCHAR(1024) NOT NULL,
-    keywords VARCHAR(1024) NOT NULL,
-    exam_id VARCHAR(50) NOT NULL
+    question VARCHAR(250) NOT NULL,
+    keywords VARCHAR(250) NOT NULL,
+    exam_id VARCHAR(20) NOT NULL
 );
 
 INSERT INTO questions (id, question, keywords, exam_id)

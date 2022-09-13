@@ -16,6 +16,16 @@ def question_choices():
     return question_choices_list
 
 
+def question_set_choices():
+    questions = Questions.query.all()
+    question_set_choices_list = []
+    for question in questions:
+        if question.exam_id not in question_set_choices_list:
+            question_set_choices_list.append(str(question.exam_id))
+
+    return question_set_choices_list
+
+
 def student_choices():
     students = Users.query.all()
     student_choices_list = []
@@ -51,7 +61,8 @@ class LoginForm(FlaskForm):
 
 
 class AnswerForm(FlaskForm):
-    answer = StringField(label='Answer:', widget=TextArea(), validators=[DataRequired()], render_kw={"rows": 10, "cols": 100})
+    answer = StringField(label='Answer:', widget=TextArea(), validators=[DataRequired()],
+                         render_kw={"rows": 10, "cols": 100})
     submit = SubmitField(label='Check Answer')
     report = SubmitField(label='Report (Enter your answer before reporting! No excuses!)')
 
@@ -62,5 +73,6 @@ class AttemptForm(FlaskForm):
 
 class AssignForm(FlaskForm):
     students = SelectMultipleField(u'Student', choices=student_choices)
-    homeworks = SelectMultipleField(u'Question Set', choices=question_choices)
+    questions = SelectMultipleField(u'Question', choices=question_choices)
+    question_sets = SelectMultipleField(u'Question Set', choices=question_set_choices)
     submit = SubmitField(label='Assign Homework')

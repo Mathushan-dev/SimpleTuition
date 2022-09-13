@@ -28,13 +28,21 @@ def assign_page():
 
         if form.validate_on_submit():
             students = form.students.data
-            questions = form.homeworks.data
+            questions = form.questions.data
+            question_sets = form.question_sets.data
 
-            if students is not None and questions is not None:
+            if students is not None and (questions is not None or question_sets is not None):
                 questions_to_assign_list = []
 
                 for question in questions:
-                    questions_to_assign_list.append(question.split("-")[0].strip())
+                    if question.split("-")[0].strip() not in questions_to_assign_list:
+                        questions_to_assign_list.append(question.split("-")[0].strip())
+
+                for question_set in question_sets:
+                    questions_to_append = Questions.query.filter_by(exam_id=question_set).all()
+                    for question in questions_to_append:
+                        if str(question.id) not in questions_to_assign_list:
+                            questions_to_assign_list.append(str(question.id))
 
                 for student in students:
                     student_to_assign = student.split("-")[0].strip()

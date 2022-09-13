@@ -4,7 +4,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import LoginManager
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://bd8b658bfbc54d:7dd12f4e@us-cdbr-east-06.cleardb.net/heroku_d179a5390b5e6e4?reconnect=true'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://Mathushan-dev:v2_3tuJi_EGgni22pJR3jSmZSXYPeE2T@db.bit.io/Mathushan-dev/dbsimpletuition'
 app.config['SECRET_KEY'] = 'ec9439cfc6c796ae2029594d'
 app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {"pool_pre_ping": True}
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

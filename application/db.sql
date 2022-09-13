@@ -1,11 +1,11 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(20) NOT NULL,
-    email_address VARCHAR(25) NOT NULL,
-    password_hash VARCHAR(60) NOT NULL,
-    outstanding_questions VARCHAR(250),
-    completed_questions VARCHAR(250),
-    log VARCHAR(250) NOT NULL
+    email_address VARCHAR(40) NOT NULL,
+    password_hash VARCHAR(100) NOT NULL,
+    outstanding_questions VARCHAR(350),
+    completed_questions VARCHAR(350),
+    log VARCHAR(500) NOT NULL
 );
 CREATE TABLE questions (
     id SERIAL PRIMARY KEY,

@@ -123,9 +123,7 @@ def attempt_page():
             if form.report.data:
                 now = datetime.now()
                 timestamp = now.strftime("%m/%d/%Y, %H:%M:%S")
-                current_user_log = current_user.log
-                current_user_log += timestamp + ": Attempted question - " + question_id + " with answer - " + answer + "\n"
-                current_user.log = current_user_log
+                current_user.log = timestamp + ": Attempted question - " + question_id + " with answer - " + answer
                 db.session.commit()
 
             question = Questions.query.filter_by(id=question_id).first()
@@ -178,7 +176,7 @@ def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
         now = datetime.now()
-        timestamp = "Account created on " + now.strftime("%m/%d/%Y, %H:%M:%S")
+        timestamp = "Account created on " + now.strftime("%m/%d/%Y, %H:%M:%S") + "\n"
         user_to_create = Users(username=form.username.data,
                                email_address=form.email_address.data,
                                password=form.password1.data,

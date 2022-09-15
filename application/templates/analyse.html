@@ -8,7 +8,8 @@ Analyse Page
     <thead>
     <tr>
         <th scope="col">Student ID</th>
-        <th scope="col">Student username</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
         <th scope="col">No. incomplete</th>
         <th scope="col">Log</th>
     </tr>
@@ -18,6 +19,7 @@ Analyse Page
     <tr>
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
+        <td>{{ user.email_address }}</td>
         {% if user.outstanding_questions is not none %}
             <td>{{ user.outstanding_questions.split(",")|length }}</td>
         {% else %}

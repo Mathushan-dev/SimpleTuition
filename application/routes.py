@@ -176,7 +176,7 @@ def register_page():
     form = RegisterForm()
     if form.validate_on_submit():
         now = datetime.now()
-        timestamp = "Account created on " + now.strftime("%m/%d/%Y, %H:%M:%S") + "\n"
+        timestamp = "Account created on " + now.strftime("%m/%d/%Y, %H:%M:%S")
         user_to_create = Users(username=form.username.data,
                                email_address=form.email_address.data,
                                password=form.password1.data,

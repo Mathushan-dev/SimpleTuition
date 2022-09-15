@@ -9,8 +9,8 @@ Analyse Page
     <tr>
         <th scope="col">Student ID</th>
         <th scope="col">Student username</th>
-        <th scope="col">Incomplete ID's</th>
         <th scope="col">No. incomplete</th>
+        <th scope="col">Incomplete ID's</th>
     </tr>
     </thead>
     <tbody>
@@ -18,12 +18,12 @@ Analyse Page
     <tr>
         <td>{{ user.id }}</td>
         <td>{{ user.username }}</td>
-        <td>{{ user.outstanding_questions }}</td>
         {% if user.outstanding_questions is not none %}
             <td>{{ user.outstanding_questions.split(",")|length }}</td>
         {% else %}
             <td><p>0</p></td>
         {% endif %}
+        <td>{{ user.outstanding_questions }}</td>
     </tr>
     {% endfor %}
     </tbody>

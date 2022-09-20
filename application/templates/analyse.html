@@ -10,6 +10,7 @@ Analyse Page
         <th scope="col">Username</th>
         <th scope="col">No. incomplete</th>
         <th scope="col">Log</th>
+        <th scope="col">Options</th>
     </tr>
     </thead>
     <tbody>
@@ -22,6 +23,13 @@ Analyse Page
             <td><p>0</p></td>
         {% endif %}
         <td>{{user.log}}</td>
+        <td>
+            <form method="POST">
+                {{ form.hidden_tag() }}
+                <input id="user_id" name="user_id" type="hidden" value="{{ user.id }}">
+                {{ form.submit(class="btn btn-outline-success btn-block") }}
+            </form>
+        </td>
     </tr>
     {% endfor %}
     </tbody>

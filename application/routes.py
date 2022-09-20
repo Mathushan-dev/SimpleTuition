@@ -1,7 +1,7 @@
 from application import app
 from flask import render_template, redirect, url_for, flash, request, session
 from application.models import Questions, Users
-from application.forms import RegisterForm, LoginForm, AttemptForm, AnswerForm, AssignForm
+from application.forms import RegisterForm, LoginForm, AttemptForm, AnswerForm, AssignForm, ClearForm
 from application import db
 from flask_login import login_user, logout_user, login_required, current_user
 from application.questionMarker import analyse_answers
@@ -62,7 +62,7 @@ def assign_page():
 
                             db.session.commit()
 
-            return analyse_page()
+            return redirect(url_for('analyse_page'))
 
         if form.errors != {}:
             for err_msg in form.errors.values():
@@ -73,12 +73,27 @@ def assign_page():
     return login_page()
 
 
-@app.route('/analyse')
+@app.route('/analyse', methods=['GET', 'POST'])
 @login_required
 def analyse_page():
     if current_user.id == 1:
+        form = ClearForm()
+
+        if form.validate_on_submit():
+            user_id = request.form.get('user_id')
+            user = Users.query.filter_by(id=user_id).first()
+            user.log = "Cleared"
+            db.session.commit()
+
+            flash(f'{user.username}\'s log was cleared successfully.', category='success')
+            return redirect(url_for('analyse_page'))
+
+        if form.errors != {}:
+            for err_msg in form.errors.values():
+                flash(f'There was an error with clearing the log: {err_msg}', category='danger')
+
         users = Users.query.all()
-        return render_template('analyse.html', users=users)
+        return render_template('analyse.html', users=users, form=form)
 
     return login_page()
 
@@ -123,7 +138,8 @@ def attempt_page():
             if form.report.data:
                 now = datetime.now()
                 timestamp = now.strftime("%m/%d/%Y, %H:%M:%S")
-                current_user.log = timestamp + ": Attempted question - " + question_id + " with answer - " + answer
+                current_user_log = current_user.log
+                current_user.log = str(current_user_log) + "\n" + timestamp + ": \nQID-" + question_id + ", A-" + answer + "\n"
                 db.session.commit()
 
             question = Questions.query.filter_by(id=question_id).first()

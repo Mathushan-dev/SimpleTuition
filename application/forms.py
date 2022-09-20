@@ -71,6 +71,10 @@ class AttemptForm(FlaskForm):
     submit = SubmitField(label='Attempt')
 
 
+class ClearForm(FlaskForm):
+    submit = SubmitField(label='Clear')
+
+
 class AssignForm(FlaskForm):
     students = SelectMultipleField(u'Student', choices=student_choices)
     questions = SelectMultipleField(u'Question', choices=question_choices)

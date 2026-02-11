@@ -31,9 +31,13 @@ app.include_router(admin_routes.router)
 def on_startup():
     ok = mongo_db.init_mongo()
     if not ok:
-        raise RuntimeError("MongoDB connection failed. Ensure MONGODB_URI is set and the server is running.")
-    app.state.db_backend = 'mongodb'
-    print(f"Database backend: {app.state.db_backend}")
+        import traceback
+        traceback.print_exc()
+        print("MongoDB connection failed. Continuing in degraded mode. Set MONGODB_URI to enable DB features.")
+        app.state.db_backend = None
+    else:
+        app.state.db_backend = 'mongodb'
+        print(f"Database backend: {app.state.db_backend}")
 
 # Set up HTML templates and static files
 templates = Jinja2Templates(directory="templates")

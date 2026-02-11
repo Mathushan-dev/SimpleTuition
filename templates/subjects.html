@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Subjects - Simple Tuition{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <h1>Subjects We Teach</h1>
+  <div class="muted">GCSE, A-Level, and KS3 coverage with specialist tutors.</div>
+</div>
+
+<section class="section subject-grid">
+  {% if subjects %}
+    {% for s in subjects %}
+      <div class="subject-card">
+        <h3>{{ s.name }}</h3>
+        <p class="muted">{{ s.description }}</p>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="subject-card">
+      <h3>Mathematics</h3>
+      <p class="muted">Problem solving, exam technique, and confidence building.</p>
+    </div>
+    <div class="subject-card">
+      <h3>Biology</h3>
+      <p class="muted">Clear explanations, diagrams, and recall strategies.</p>
+    </div>
+    <div class="subject-card">
+      <h3>Chemistry</h3>
+      <p class="muted">Topics, equations, and practical skills made simple.</p>
+    </div>
+    <div class="subject-card">
+      <h3>Physics</h3>
+      <p class="muted">Conceptual clarity with structured practice questions.</p>
+    </div>
+    <div class="subject-card">
+      <h3>English</h3>
+      <p class="muted">Reading comprehension, essays, and exam timing.</p>
+    </div>
+    <div class="subject-card">
+      <h3>Computer Science</h3>
+      <p class="muted">Programming fundamentals and exam prep.</p>
+    </div>
+  {% endif %}
+</section>
+
+<section class="section">
+  <div class="card">
+    <h3>Custom Packages</h3>
+    <p class="muted">We can tailor lessons to specific exam boards and target grades.</p>
+    <p><a class="btn primary" href="/contact">Ask about availability</a></p>
+  </div>
+</section>
+{% endblock %}

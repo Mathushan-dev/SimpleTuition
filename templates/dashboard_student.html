@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% block title %}Student Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <header class="dash-head">
+    <h1>Welcome, {{ user.name }}</h1>
+    <p class="muted">Student overview — lessons and payments</p>
+  </header>
+
+  <section class="cards-grid">
+    <div class="card">
+      <h3>Attended Lessons</h3>
+      <p class="muted">Lessons you've attended recently.</p>
+      <a class="btn" href="/dashboard#attended">View</a>
+    </div>
+
+    <div class="card">
+      <h3>Missed Lessons</h3>
+      <p class="muted">Lessons marked absent or missed.</p>
+      <a class="btn" href="/dashboard#missed">View</a>
+    </div>
+
+    <div class="card">
+      <h3>Upcoming</h3>
+      <p class="muted">Your forecasted upcoming lessons.</p>
+      <a class="btn primary" href="/dashboard#upcoming">See schedule</a>
+    </div>
+
+    <div class="card">
+      <h3>Payments</h3>
+      <p class="muted">Payment history and outstanding balance.</p>
+      <a class="btn" href="/dashboard#payments">View payments</a>
+    </div>
+  </section>
+
+  <section id="lessons-list">
+    <h2>Your Lessons</h2>
+    {% if bookings %}
+      <div class="list">
+      {% for b in bookings %}
+        <div class="list-item">
+          <div>
+            <strong>{{ b.booking_id }}</strong> — {{ b.date_time if b.date_time else (b.date + ' ' + b.time) }}
+            <div class="muted">Status: {{ b.status }}</div>
+          </div>
+          <div class="actions">
+            <a class="btn" href="/bookings_page#{{ b.booking_id }}">Details</a>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    {% else %}
+      <p>No lesson records found.</p>
+    {% endif %}
+  </section>
+</div>
+
+{% endblock %}

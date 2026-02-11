@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+{% block title %}Lessons - Simple Tuition{% endblock %}
+
+{% block content %}
+<h1>Lessons</h1>
+
+<section>
+  <h2>Existing Lessons</h2>
+  {% if bookings %}
+    <table class="table">
+      <thead>
+        <tr><th>ID</th><th>Student</th><th>Tutor</th><th>Subject</th><th>Date / Time</th><th>Status</th></tr>
+      </thead>
+      <tbody>
+      {% for b in bookings %}
+        <tr>
+          <td>{{ b.booking_id }}</td>
+          <td>{{ users_map.get(b.student_id, b.student_id) }}</td>
+          <td>{{ users_map.get(b.teacher_id, b.teacher_id) }}</td>
+          <td>{{ subjects_map.get(b.subject_id, b.subject_id) }}</td>
+          <td>{{ b.date_time if b.date_time else (b.date + ' ' + b.time) }}</td>
+          <td>{{ b.status }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No lessons found.</p>
+  {% endif %}
+</section>
+
+<section>
+  <h2>Create Lesson</h2>
+  <p>Only tutors and admins can create lessons via this form.</p>
+  <form method="post" action="/create_booking" class="form">
+    <input name="booking_id" type="number" placeholder="Lesson ID" required />
+    <label>Student</label>
+    <select name="student_id">
+      {% for u in users %}
+        {% if u.user_type == 'student' %}
+          <option value="{{ u.user_id }}">{{ u.name }} ({{ u.user_id }})</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+    <label>Tutor</label>
+    <select name="teacher_id">
+      {% for u in users %}
+        {% if u.user_type == 'tutor' %}
+          <option value="{{ u.user_id }}">{{ u.name }} ({{ u.user_id }})</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+    <label>Subject</label>
+    <select name="subject_id" required>
+      {% if subjects %}
+        {% for s in subjects %}
+          <option value="{{ s.subject_id }}">{{ s.name }} ({{ s.subject_id }})</option>
+        {% endfor %}
+      {% else %}
+        <option value="">(no subjects)</option>
+      {% endif %}
+    </select>
+    <label>Date / Time</label>
+    <input name="date_time" type="datetime-local" required />
+    <select name="status">
+      <option value="confirmed">confirmed</option>
+      <option value="pending">pending</option>
+    </select>
+    <button type="submit">Create Lesson</button>
+  </form>
+</section>
+
+{% endblock %}

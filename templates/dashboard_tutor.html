@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% block title %}Tutor Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <header class="dash-head">
+    <h1>Welcome, {{ user.name }}</h1>
+    <p class="muted">Tutor overview — earnings and schedule</p>
+  </header>
+
+  <section class="cards-grid">
+    <div class="card">
+      <h3>Upcoming Lessons</h3>
+      <p class="muted">Your next scheduled lessons.</p>
+      <a class="btn primary" href="/dashboard#upcoming">Manage</a>
+    </div>
+    <div class="card">
+      <h3>Attendance</h3>
+      <p class="muted">Quickly mark attendance from your schedule.</p>
+      <a class="btn" href="/dashboard#attendance">Mark Attendance</a>
+    </div>
+    <div class="card">
+      <h3>Payments</h3>
+      <p class="muted">Summary of what you're owed.</p>
+      <a class="btn" href="/dashboard#payments">View payments</a>
+    </div>
+  </section>
+
+  <section id="lessons-list">
+    <h2>Schedule</h2>
+    {% if bookings %}
+      <div class="list">
+      {% for b in bookings %}
+        <div class="list-item">
+          <div>
+            <strong>{{ b.booking_id }}</strong> — {{ b.date_time if b.date_time else (b.date + ' ' + b.time) }}
+            <div class="muted">Student: {{ b.student_id }} — Status: {{ b.status }}</div>
+          </div>
+          <div class="actions">
+            <form method="post" action="/record_attendance" style="display:inline">
+              <input type="hidden" name="booking_id" value="{{ b.booking_id }}" />
+              <button name="present" value="True" class="btn">Present</button>
+              <button name="present" value="False" class="btn outline">Absent</button>
+            </form>
+            <a class="btn" href="/bookings_page#{{ b.booking_id }}">Details</a>
+            <a class="btn" href="/reschedule?booking_id={{ b.booking_id }}">Rearrange</a>
+          </div>
+        </div>
+      {% endfor %}
+      </div>
+    {% else %}
+      <p>No lessons scheduled.</p>
+    {% endif %}
+  </section>
+
+  <footer class="dash-foot">
+    <div>Amount due: <strong>£{{ due }}</strong></div>
+  </footer>
+</div>
+
+{% endblock %}

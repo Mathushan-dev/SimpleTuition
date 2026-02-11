@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up - Simple Tuition{% endblock %}
+
+{% block content %}
+<div class="auth-card">
+  <h2>Create an account</h2>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/signup" class="form">
+    <input name="user_id" type="number" placeholder="User ID (unique)" required />
+    <input name="name" type="text" placeholder="Full name" required />
+    <input name="email" type="email" placeholder="you@example.com" required />
+    <input name="password" type="password" placeholder="Choose a password" required />
+    <select name="user_type" required>
+      <option value="student">Student</option>
+      <option value="tutor">Tutor</option>
+    </select>
+    <button type="submit" class="primary">Create account</button>
+  </form>
+
+  <p style="margin-top:12px">Already have an account? <a href="/login">Login here</a>.</p>
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit User{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>Edit User</h2>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/admin/edit_user">
+    <input type="hidden" name="user_id" value="{{ user_obj.user_id if user_obj }}" />
+    <label>Name</label>
+    <input name="name" value="{{ user_obj.name if user_obj }}" />
+    <label>Email</label>
+    <input name="email" value="{{ user_obj.email if user_obj }}" />
+    <label>Type</label>
+    <select name="user_type">
+      <option value="student" {% if user_obj and user_obj.user_type=='student' %}selected{% endif %}>Student</option>
+      <option value="tutor" {% if user_obj and user_obj.user_type=='tutor' %}selected{% endif %}>Tutor</option>
+      <option value="admin" {% if user_obj and user_obj.user_type=='admin' %}selected{% endif %}>Admin</option>
+    </select>
+    <div class="form-actions">
+      <button class="btn primary">Save</button>
+      <a class="btn" href="/admin/users">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

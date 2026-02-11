@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Subjects{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <header class="dash-head">
+    <h1>Subjects</h1>
+    <p class="muted">Manage subjects and pricing</p>
+  </header>
+
+  {% include 'admin_nav.html' %}
+  <section class="admin-actions">
+    <p class="muted">Manage the subjects offered and price assignments. Seeding is disabled in production.</p>
+  </section>
+
+  <section class="admin-list">
+    <h2>Subjects</h2>
+    <div class="search-row">
+      <input type="search" id="subject-search" placeholder="Search subjects by name or id">
+      <div class="chip">{{ subjects|length }}</div>
+    </div>
+    <div class="list" id="subjects-list">
+    {% for s in subjects %}
+      <div class="list-item card" data-name="{{ s.name|lower }}" data-id="{{ s.subject_id }}">
+        <div style="flex:1">
+          <h3 style="margin:0">{{ s.name }} <small class="muted">#{{ s.subject_id }}</small></h3>
+          <p class="muted" style="margin:6px 0">{{ s.description|truncate(160) }}</p>
+          <div class="details">
+            <p class="muted">Full description: {{ s.description }}</p>
+            <div style="margin-top:8px"><a class="btn" href="/admin/subjects">View</a></div>
+          </div>
+        </div>
+        <div class="actions" style="display:flex;flex-direction:column;align-items:flex-end">
+          <button class="btn small toggle-details">Details</button>
+        </div>
+      </div>
+    {% else %}
+      <div class="muted">No subjects available.</div>
+    {% endfor %}
+    </div>
+  </section>
+
+  <section class="admin-list">
+    <h2>Assignments</h2>
+    <div class="muted">Assignments are now managed on a separate page — use the sidebar link "Assignments" to open the dedicated view.</div>
+  </section>
+
+</div>
+{% endblock %}

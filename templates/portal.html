@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}Portal - Simple Tuition{% endblock %}
+
+{% block content %}
+<div class="page-title">
+  <h1>Student & Parent Portal</h1>
+  <div class="muted">Everything you need to manage lessons and progress.</div>
+</div>
+
+<section class="section split">
+  <div class="card">
+    <h2>Quick Access</h2>
+    <p class="muted">Sign in to view bookings, attendance, and payment history. Admins can manage users and lessons.</p>
+    <div class="pill-row">
+      <div class="pill">Lesson Schedule</div>
+      <div class="pill">Attendance</div>
+      <div class="pill">Payments</div>
+      <div class="pill">Progress Notes</div>
+    </div>
+  </div>
+  <div class="card">
+    <h3>How It Works</h3>
+    <ol>
+      <li>Log in with your centre account.</li>
+      <li>Review upcoming lessons and recent attendance.</li>
+      <li>Contact your tutor if you need to reschedule.</li>
+    </ol>
+  </div>
+</section>
+
+<section class="section">
+  <div class="cta-banner">
+    <div>
+      <strong>Need help accessing your account?</strong>
+      <div class="muted">Email us and we will reset your login within 1 business day.</div>
+    </div>
+    <a class="btn" href="/forgot_password">Reset Password</a>
+  </div>
+</section>
+{% endblock %}

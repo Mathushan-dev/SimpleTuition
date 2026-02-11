@@ -1,0 +1,192 @@
+{% extends 'base.html' %}
+{% block title %}Admin Dashboard{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <!-- Replaced sidebar navigation with top-level admin cards -->
+  <div class="admin-cards" role="tablist" aria-label="Admin panels">
+    <div class="admin-card" data-panel="users" data-href="/admin/users"><span class="icon">👥</span><div class="label">Users <span class="badge" data-badge-for="users">0</span></div></div>
+    <div class="admin-card" data-panel="lessons" data-href="/admin/lessons"><span class="icon">📚</span><div class="label">Lessons <span class="badge" data-badge-for="lessons">0</span></div></div>
+    <div class="admin-card" data-panel="subjects" data-href="/admin/subjects"><span class="icon">📘</span><div class="label">Subjects <span class="badge" data-badge-for="subjects">0</span></div></div>
+    <div class="admin-card" data-panel="assignments" data-href="/admin/assignments"><span class="icon">🧾</span><div class="label">Assignments <span class="badge" data-badge-for="assignments">0</span></div></div>
+    <div class="admin-card" data-panel="reports" data-href="/admin/reports"><span class="icon">📈</span><div class="label">Reports <span class="badge" data-badge-for="reports">0</span></div></div>
+  </div>
+
+  <div class="page-title">
+    <h1>Welcome, {{ user.name }}</h1>
+    <div class="muted">Admin control center — manage users, lessons and subjects</div>
+  </div>
+  {% if created_user %}
+    <div class="card" style="margin-bottom:12px">
+      <strong>Created user:</strong>
+      <div class="muted">Email: {{ created_user.email }} · User ID: {{ created_user.user_id }}</div>
+      <div style="margin-top:8px">Temporary password: <code id="created-temp-pass">{{ created_user.password }}</code>
+        <button class="btn small" id="copy-temp-pass">Copy</button>
+      </div>
+    </div>
+  {% endif %}
+  <section class="admin-panels">
+    <!-- Create user modal trigger (moved into Users panel) -->
+    <div data-panel-content="users" style="display:none">
+      <h2>Users</h2>
+      <div style="margin-bottom:12px">
+        <button class="btn primary" id="open-create-user">＋ Create User</button>
+      </div>
+      <div class="card">
+        <div class="admin-list">
+          <div class="list">
+            {% for u in users %}
+              <div class="list-item">
+                <div>
+                  <strong>{{ u.user_id }} — {{ u.name }}</strong>
+                  <div class="muted">{{ u.email }} · {{ u.user_type }}</div>
+                </div>
+                <div class="actions">
+                  <a class="btn" href="/admin/edit_user?user_id={{ u.user_id }}" title="Edit user">✏️</a>
+                  <form method="post" action="/admin/remove_user" style="display:inline">
+                    <input type="hidden" name="user_id" value="{{ u.user_id }}" />
+                    <button class="btn outline">Remove</button>
+                  </form>
+                </div>
+              </div>
+            {% else %}
+              <div class="muted">No users found.</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-panel-content="lessons" style="display:none">
+      <h2>Lessons</h2>
+      <div class="card">
+        <div class="admin-list">
+          <div class="list">
+            {% for b in bookings %}
+              <div class="list-item">
+                <div>
+                  <strong>Lesson {{ b.booking_id }}</strong>
+                  <div class="muted">Student {{ b.student_id }} · Tutor {{ b.teacher_id }} · Status: {{ b.status }}</div>
+                </div>
+                <div class="actions">
+                  <a class="btn" href="/admin/edit_lesson?booking_id={{ b.booking_id }}" title="Edit lesson">✏️</a>
+                </div>
+              </div>
+            {% else %}
+              <div class="muted">No lessons found.</div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div data-panel-content="subjects" style="display:none">
+      <h2>Subjects</h2>
+      <div class="card">
+        <div id="subjects-list" class="list">
+          {% for s in subjects %}
+            <div class="list-item">
+              <div>
+                <strong>{{ s.subject_id }} — {{ s.name }}</strong>
+                <div class="muted">{{ s.description }}</div>
+              </div>
+            </div>
+          {% else %}
+            <div class="muted">No subjects available.</div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <div data-panel-content="assignments" style="display:none">
+      <h2>Assignments</h2>
+      <div class="card">
+        <div id="assignments-list" class="list">
+          {% if assignments %}
+            {% for a in assignments %}
+              <div class="list-item" data-subject="{{ a.subject_id }}" data-student="{{ a.student_name or a.student_id }}">
+                <div>
+                  <strong>Subject {{ a.subject_id }} — {{ a.student_name or a.student_id }}</strong>
+                  <div class="muted">{% if a.get('price') %}Price: £{{ a.price }}{% else %}Price: (not set){% endif %}</div>
+                  <div class="details" style="margin-top:8px">
+                    <p class="muted" style="margin:6px 0">Subject ID: {{ a.subject_id }} · Student ID: {{ a.student_id }}</p>
+                  </div>
+                </div>
+                <div class="actions">
+                  <a class="btn small" href="/admin/edit_assignment?subject_id={{ a.subject_id }}&student_id={{ a.student_id }}" title="Edit assignment">✏️</a>
+                </div>
+              </div>
+            {% endfor %}
+          {% else %}
+            <div class="muted">No assignments yet.</div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <div data-panel-content="reports" style="display:none">
+      <h2>Reports</h2>
+      <div class="card">
+        <div class="info-list">
+          <div class="info-item">
+            <h3>Users</h3>
+            <p class="muted">Students: {{ user_counts.students }}</p>
+            <p class="muted">Tutors: {{ user_counts.tutors }}</p>
+            <p class="muted">Admins: {{ user_counts.admins }}</p>
+          </div>
+          <div class="info-item">
+            <h3>Bookings</h3>
+            <p class="muted">Confirmed: {{ booking_counts.confirmed }}</p>
+            <p class="muted">Pending: {{ booking_counts.pending }}</p>
+            <p class="muted">Attended: {{ booking_counts.attended }}</p>
+          </div>
+        </div>
+        <h3 style="margin-top:18px">Upcoming Lessons</h3>
+        {% if upcoming %}
+          <table class="table">
+            <thead>
+              <tr><th>ID</th><th>Student</th><th>Tutor</th><th>Date / Time</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+            {% for b in upcoming %}
+              <tr>
+                <td>{{ b.booking_id }}</td>
+                <td>{{ b.student_id }}</td>
+                <td>{{ b.teacher_id }}</td>
+                <td>{{ b.date_time }}</td>
+                <td>{{ b.status }}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        {% else %}
+          <p class="muted">No upcoming lessons.</p>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Create User Modal -->
+  <div id="create-user-modal" class="modal" style="display:none">
+    <div class="modal-content">
+      <button class="modal-close" id="close-create-user">✕</button>
+      <h3>Create User</h3>
+      <form method="post" action="/admin/add_user" id="create-user-form">
+        <label>Name <input name="name" required></label>
+        <label>Email <input name="email" type="email" required></label>
+        <label>Type
+          <select name="user_type">
+            <option value="student">student</option>
+            <option value="tutor">tutor</option>
+            <option value="admin">admin</option>
+          </select>
+        </label>
+        <label>Temporary password (leave blank to auto-generate) <input name="password"></label>
+        <div style="margin-top:12px">
+          <button class="btn primary">Create</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

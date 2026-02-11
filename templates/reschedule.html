@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Reschedule Lesson{% endblock %}
+
+{% block content %}
+<h1>Reschedule Lesson</h1>
+{% if error %}
+  <div class="error">{{ error }}</div>
+{% endif %}
+<form method="post" action="/reschedule_action" class="form">
+  <input type="number" name="booking_id" placeholder="Lesson ID" required />
+  <label>New date / time</label>
+  <input type="datetime-local" name="date_time" required />
+  <button type="submit" class="primary">Reschedule</button>
+</form>
+
+{% endblock %}

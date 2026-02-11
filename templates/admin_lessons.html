@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}Manage Lessons{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <header class="dash-head">
+    <h1>Manage Lessons</h1>
+    <p class="muted">View and edit scheduled lessons</p>
+  </header>
+
+  {% include 'admin_nav.html' %}
+
+  <section class="admin-list">
+    <h2>Lessons</h2>
+    <div class="list">
+    {% for b in bookings %}
+      <div class="list-item card">
+        <div>
+          <h3>Lesson {{ b.booking_id }} <small class="muted">Student {{ b.student_id }} · Tutor {{ b.teacher_id }}</small></h3>
+          <p class="muted">Status: {{ b.status }} · {{ b.date_time }}</p>
+        </div>
+        <div class="actions">
+          <a class="btn" href="/admin/edit_lesson?booking_id={{ b.booking_id }}" title="Edit lesson">✏️</a>
+        </div>
+      </div>
+    {% else %}
+      <div class="muted">No lessons found.</div>
+    {% endfor %}
+    </div>
+  </section>
+
+</div>
+{% endblock %}

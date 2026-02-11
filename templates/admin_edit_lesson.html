@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Lesson{% endblock %}
+
+{% block content %}
+<div class="card">
+  <h2>Edit Lesson</h2>
+  {% if error %}
+    <div class="error">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/admin/edit_lesson">
+    <input type="hidden" name="booking_id" value="{{ booking.booking_id if booking }}" />
+    <label>Student ID</label>
+    <input name="student_id" value="{{ booking.student_id if booking }}" />
+    <label>Teacher ID</label>
+    <input name="teacher_id" value="{{ booking.teacher_id if booking }}" />
+    <label>Date / Time</label>
+    <input name="date_time" value="{{ booking.date_time if booking }}" />
+    <label>Status</label>
+    <select name="status">
+      <option value="confirmed" {% if booking and booking.status=='confirmed' %}selected{% endif %}>Confirmed</option>
+      <option value="attended" {% if booking and booking.status=='attended' %}selected{% endif %}>Attended</option>
+      <option value="absent" {% if booking and booking.status=='absent' %}selected{% endif %}>Absent</option>
+      <option value="cancelled" {% if booking and booking.status=='cancelled' %}selected{% endif %}>Cancelled</option>
+    </select>
+    <div class="form-actions">
+      <button class="btn primary">Save</button>
+      <a class="btn" href="/admin/lessons">Cancel</a>
+    </div>
+  </form>
+</div>
+{% endblock %}

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Assignment{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+  <header class="dash-head">
+    <h1>Edit Assignment</h1>
+    <p class="muted">Modify price or remove the student assignment.</p>
+  </header>
+
+  <section class="card">
+    {% if error %}
+      <div class="error">{{ error }}</div>
+    {% else %}
+      <form method="post" action="/admin/edit_assignment">
+        <input type="hidden" name="subject_id" value="{{ assignment.subject_id }}">
+        <input type="hidden" name="student_id" value="{{ assignment.student_id }}">
+        <p><strong>Subject:</strong> {{ subject.name if subject else assignment.subject_id }} (ID {{ assignment.subject_id }})</p>
+        <p><strong>Student:</strong> {{ student.name if student else assignment.student_id }} (ID {{ assignment.student_id }})</p>
+        <label>Price <input name="price" value="{% if assignment.price %}{{ assignment.price }}{% endif %}"></label>
+        <div style="margin-top:12px;display:flex;gap:8px">
+          <button class="btn primary">Save</button>
+          <button class="btn" type="submit" name="remove" value="1">Remove Assignment</button>
+          <a class="btn" href="/admin/assignments">Cancel</a>
+        </div>
+      </form>
+    {% endif %}
+  </section>
+</div>
+
+{% endblock %}

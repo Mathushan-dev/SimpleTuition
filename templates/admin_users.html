@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Manage Users{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <header class="dash-head">
+    <h1>Manage Users</h1>
+    <p class="muted">Create, edit or remove users</p>
+  </header>
+
+  {% include 'admin_nav.html' %}
+
+  <section class="admin-list">
+    <h2>Users</h2>
+    <div class="list">
+    {% for u in users %}
+      <div class="list-item card">
+        <div>
+          <h3>{{ u.name }} <small class="muted">#{{ u.user_id }}</small></h3>
+          <p class="muted">{{ u.email }} · {{ u.user_type }}</p>
+        </div>
+        <div class="actions">
+          <a class="btn" href="/admin/edit_user?user_id={{ u.user_id }}" title="Edit user">✏️</a>
+          <form method="post" action="/admin/remove_user" style="display:inline">
+            <input type="hidden" name="user_id" value="{{ u.user_id }}" />
+            <button class="btn outline">Remove</button>
+          </form>
+        </div>
+      </div>
+    {% else %}
+      <div class="muted">No users found.</div>
+    {% endfor %}
+    </div>
+  </section>
+
+  {% if created_user %}
+    <section class="admin-list">
+      <h2>Created User</h2>
+      <div class="card">
+        <p>Temporary credentials (share these with the user):</p>
+        <ul>
+          <li><strong>Email:</strong> {{ created_user.email }}</li>
+          <li><strong>User ID:</strong> {{ created_user.user_id }}</li>
+          <li><strong>Temporary password:</strong> {{ created_user.password }}</li>
+        </ul>
+        <p class="muted">Ask them to use the <a href="/forgot_password">Forgot password</a> flow to set a permanent password.</p>
+      </div>
+    </section>
+  {% endif %}
+
+</div>
+{% endblock %}
